@@ -28,23 +28,27 @@
 </form>
 
 @section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        // AJAX delete request
-        $('#deletePropertyForm').submit(function (event) {
-            event.preventDefault(); // Prevent the form from submitting the normal way
+        $(document).ready(function () {
+            $("#confirmDelete").click(function () {
+                var propertyId = @Model.pro_id;
 
-            $.ajax({
-                url: '@Url.Action("DeleteConfirmed", "PropertiesPerson")', // Use the DeleteConfirmed action in PropertiesPerson controller
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function (response) {
-                    // On success, notify and redirect to Index
-                    alert('Emlak ilanı başarıyla silindi!');
-                    location.reload(); // Optionally reload the page or update the table dynamically
-                },
-                error: function (xhr, status, error) {
-                    alert('Bir hata oluştu!');
-                }
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("DeleteConfirmed", "PropertiesPerson")",
+                    data: { id: propertyId },
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.href = '@Url.Action("Index", "PropertiesPerson")';
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function (error) {
+                        alert('Error deleting property.');
+                    }
+                });
             });
         });
     </script>

@@ -65,27 +65,34 @@
             </div>
 
             <div class="mb-3">
+                <label asp-for="user_ID" class="form-label">Kullanıcı Seçiniz</label>
+                <select asp-for="user_ID" class="form-control">
+                    <option value="">--- Kullanıcı Seçiniz ---</option>
+                    @if (ViewBag.Users != null)
+                    {
+                        foreach (var user in ViewBag.Users as SelectList)
+                        {
+                            <option value="@user.Value">@user.Text</option>
+                        }
+                    }
+                    else
+                    {
+                        <option disabled>Henüz kullanıcı bulunmamaktadır.</option>
+                    }
+                </select>
+                <span class="text-danger" asp-validation-for="user_ID"></span>
+            </div>
+
+            <div class="mb-3">
                 <label for="propertyImages" class="form-label">Emlak Resimleri</label>
-                <input type="file" name="propertyImages" id="propertyImages" class="form-control" multiple />
+                <input type="file" name="PropertyImages" id="propertyImages" class="form-control" multiple />
                 <span class="text-danger" asp-validation-for="PropertyImages"></span>
             </div>
 
             <div class="mb-3">
-                <label for="primaryImage" class="form-label">Birincil Resmi Seç</label>
-                <input type="checkbox" name="primaryImage" id="primaryImage" />
-            </div>
-
-      <!--   <div class="mb-3">
-                <label asp-for="user_ID" class="form-label"></label>
-                <select asp-for="user_ID" asp-items="ViewBag.Users" class="form-control">
-                    <option value="">--- Kullanıcı Seçiniz ---</option>
-                </select>
-                <span class="text-danger" asp-validation-for="user_ID"></span>
-                  </div>-->
-
-            <div class="mb-3">
                 <input type="submit" value="Kaydet" class="btn btn-primary" />
             </div>
+
         </form>
     </div>
 </div>

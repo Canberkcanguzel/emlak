@@ -67,12 +67,12 @@
                 <span class="text-danger" asp-validation-for="status"></span>
             </div>
 
+
             <div class="mb-3">
                 <label for="propertyImages" class="form-label">Emlak Resimleri</label>
                 <input type="file" name="propertyImages" id="propertyImages" class="form-control" multiple />
                 <span class="text-danger" asp-validation-for="PropertyImages"></span>
             </div>
-
 
             <!-- Form Submit Button -->
             <div class="mb-3">
@@ -82,27 +82,36 @@
     </div>
 </div>
 
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+}
 
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        // AJAX form submission
-        $('#updatePropertyForm').submit(function (event) {
-            event.preventDefault(); // Prevent the form from submitting the normal way
+        $(document).ready(function () {
+            $("#updatePropertyForm").submit(function (event) {
+                event.preventDefault();
 
-            $.ajax({
-                url: '@Url.Action("Update", "PropertiesPerson")', // Use the Update action in PropertiesPerson controller
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function (response) {
-                    // On success, notify and refresh the property list
-                    alert('Emlak ilanı başarıyla güncellendi!');
-                    location.reload(); // Optionally reload the page or update the table dynamically
-                },
-                error: function (xhr, status, error) {
-                    alert('Bir hata oluştu!');
-                }
+                var formData = new FormData(this);
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Update", "PropertiesPerson")", // Action method for updating property
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.success) {
+                            $("#responseMessage").html('<div class="alert alert-success">' + response.message + '</div>');
+                        } else {
+                            $("#responseMessage").html('<div class="alert alert-danger">' + response.message + '</div>');
+                        }
+                    },
+                    error: function (error) {
+                        $("#responseMessage").html('<div class="alert alert-danger">An error occurred while updating the property.</div>');
+                    }
+                });
             });
         });
     </script>
