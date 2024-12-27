@@ -1,0 +1,47 @@
+﻿@using emlak.ViewModels
+@model List<UserModel﻿>
+﻿@{
+    ViewData["title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section CardHeader {
+    <span>Üyeler</span>
+}
+
+<a asp-action="Add" asp-controller="User" class="btn btn-primary btn-sm mb-2">Ekle</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Kullanıcı Adı</th>
+            <th>E-Posta</th>
+            <th>Parola</th>
+            <th>Yetki</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null || !Model.Any())
+        {
+            <tr>
+                <td colspan="8">Henüz kullanıcı kaydı yok.</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.userName</td>
+                    <td>@item.email</td>
+                    <td>********</td> <!-- Şifre gösterilmiyor -->
+                    <td>@item.role</td>
+                   
+                    <td>
+                        <a asp-action="Update" asp-route-id="@item.user_id" class="btn btn-primary btn-sm">Düzenle</a>
+                        <a asp-action="Delete" asp-route-id="@item.user_id" class="btn btn-danger btn-sm">Sil</a>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>

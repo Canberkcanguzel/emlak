@@ -1,0 +1,54 @@
+﻿@using emlak.ViewModels
+@model List<PropertiesModel>
+
+@{
+    ViewData["title"] = "Emlak İlanları";
+
+    Layout = "~/Views/Shared/_LayoutGuestHomePage.cshtml";
+}
+
+@section CardHeader {
+        <span>Emlak İlanları</span>
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Emlak ID</th>
+            <th>Başlık</th>
+            <th>Fiyat</th>
+            <th>Konum</th>
+            <th>Oda Sayısı</th>
+            <th>Metrekare</th>
+            <th>Durum</th>
+            <th>İlan Sahibi</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null || !Model.Any())
+        {
+                <tr>
+                    <td colspan="9">Henüz bir ilan eklenmedi.</td>
+                </tr>
+        }
+        else
+        {
+            @foreach (var property in Model)
+            {
+                        <tr>
+                            <td>@property.pro_id</td>
+                            <td>@property.title</td>
+                            <td>@property.price</td>
+                            <td>@property.location</td>
+                            <td>@property.bedrooms</td>
+                            <td>@property.area</td>
+                            <td>@property.status</td>
+                            <td>@property.User?.userName ?? "Bilinmiyor"</td>
+                          
+                        </tr>
+            }
+        }
+    </tbody>
+</table>

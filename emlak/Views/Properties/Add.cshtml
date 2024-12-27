@@ -1,0 +1,95 @@
+﻿@using emlak.ViewModels
+@model PropertiesModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section CardHeader {
+    <span>Yeni Emlak İlanı Ekle</span>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" asp-action="Add" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label asp-for="title" class="form-label"></label>
+                <input asp-for="title" class="form-control" />
+                <span class="text-danger" asp-validation-for="title"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="description" class="form-label"></label>
+                <textarea asp-for="description" class="form-control"></textarea>
+                <span class="text-danger" asp-validation-for="description"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="price" class="form-label"></label>
+                <input asp-for="price" class="form-control" />
+                <span class="text-danger" asp-validation-for="price"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="location" class="form-label"></label>
+                <input asp-for="location" class="form-control" />
+                <span class="text-danger" asp-validation-for="location"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="propertyType" class="form-label"></label>
+                <input asp-for="propertyType" class="form-control" />
+                <span class="text-danger" asp-validation-for="propertyType"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="bedrooms" class="form-label"></label>
+                <input asp-for="bedrooms" class="form-control" />
+                <span class="text-danger" asp-validation-for="bedrooms"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="area" class="form-label"></label>
+                <input asp-for="area" class="form-control" />
+                <span class="text-danger" asp-validation-for="area"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="status" class="form-label"></label>
+                <select asp-for="status" class="form-control">
+                    <option value="">--- Durum Seçiniz ---</option>
+                    <option value="Satılık">Satılık</option>
+                    <option value="Kiralık">Kiralık</option>
+                </select>
+                <span class="text-danger" asp-validation-for="status"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="propertyImages" class="form-label">Emlak Resimleri</label>
+                <input type="file" name="propertyImages" id="propertyImages" class="form-control" multiple />
+                <span class="text-danger" asp-validation-for="PropertyImages"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="primaryImage" class="form-label">Birincil Resmi Seç</label>
+                <input type="checkbox" name="primaryImage" id="primaryImage" />
+            </div>
+
+      <!--   <div class="mb-3">
+                <label asp-for="user_ID" class="form-label"></label>
+                <select asp-for="user_ID" asp-items="ViewBag.Users" class="form-control">
+                    <option value="">--- Kullanıcı Seçiniz ---</option>
+                </select>
+                <span class="text-danger" asp-validation-for="user_ID"></span>
+                  </div>-->
+
+            <div class="mb-3">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

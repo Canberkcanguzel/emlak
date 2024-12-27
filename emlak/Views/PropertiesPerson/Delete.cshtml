@@ -1,0 +1,51 @@
+﻿@using emlak.ViewModels
+@model PropertiesModel
+
+@{
+    ViewData["title"] = "Delete";
+    Layout = "~/Views/Shared/_LayoutPerson.cshtml";
+}
+
+@section CardHeader {
+    <span>Ilan Sil</span>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<form method="post">
+    <h5>@Model.pro_id isimli ilan silinecektir. Onaylıyor musunuz?</h5>
+    <input asp-for="pro_id" type="hidden" />
+
+    <div class="mb-3">
+        <input type="submit" value="Ilan Sil" class="btn btn-sm btn-danger" />
+        <a asp-action="Index" class="btn btn-sm btn-secondary">Vazgeç</a>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        // AJAX delete request
+        $('#deletePropertyForm').submit(function (event) {
+            event.preventDefault(); // Prevent the form from submitting the normal way
+
+            $.ajax({
+                url: '@Url.Action("DeleteConfirmed", "PropertiesPerson")', // Use the DeleteConfirmed action in PropertiesPerson controller
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function (response) {
+                    // On success, notify and redirect to Index
+                    alert('Emlak ilanı başarıyla silindi!');
+                    location.reload(); // Optionally reload the page or update the table dynamically
+                },
+                error: function (xhr, status, error) {
+                    alert('Bir hata oluştu!');
+                }
+            });
+        });
+    </script>
+}

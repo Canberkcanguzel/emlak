@@ -1,0 +1,29 @@
+﻿@using emlak.ViewModels
+@model UserModel
+
+@{
+    ViewData["title"] = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section CardHeader {
+    <span>Üye Sil</span>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<form method="post">
+    <h5>@Model.userName isimli üye silinecektir. Onaylıyor musunuz?</h5>
+
+    <input asp-for="user_id" type="hidden" value="@Model.user_id" />
+
+    <div class="mb-3">
+        <input type="submit" value="Üye Sil" class="btn btn-sm btn-danger" />
+        <a asp-action="Index" class="btn btn-sm btn-secondary">Vazgeç</a>
+    </div>
+</form>

@@ -1,0 +1,52 @@
+﻿@using emlak.ViewModels
+@model UserModel﻿﻿
+@{
+    ViewData["title"] = "Update";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section CardHeader {
+    <span>Üye Düzenle</span>
+}
+<div class="row">
+    <div class="col-md-6">
+
+
+        <form method="post" asp-action="Update" enctype="multipart/form-data">
+            <div class="mb-3">
+                <input asp-for="user_id" type="hidden" />  <!-- user_id'yi gizli alan olarak ekliyoruz -->
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="userName"></label>
+                <input asp-for="userName" class="form-control" />
+                <span class="text-danger" asp-validation-for="userName"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="email"></label>
+                <input asp-for="email" class="form-control" />
+                <span class="text-danger" asp-validation-for="email"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="password"></label>
+                <input asp-for="password" class="form-control" />
+                <span class="text-danger" asp-validation-for="password"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="role"></label>
+                <select asp-for="role" class="form-control" asp-items="ViewBag.Roles"></select>
+                <span class="text-danger" asp-validation-for="role"></span>
+            </div>
+
+            <div class="mb-3">
+                <input type="submit" value="Güncelle" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">İptal</a>
+            </div>
+        </form>
+
+
+    </div>
+</div>
